@@ -71,31 +71,29 @@ exports.signout = (req, res) => {
         message: 'User signedout success'
     })
 }
-
-// Protectes Routes
+ 
+//protected routes
 exports.isSignedIn = expressJwt({
     secret: process.env.SECRET,
-    userProperty: 'auth' 
-})
-
-
-// Custom middlewares
-
-exports.isAuthenticated = (req, res, next) => {
-    let checker = req.profile && req.auth && req.profile._id === req.auth._id;
-    if(!checker){
-        return res.status(403).json({
-            error: 'ACCESS DENIED'
-        })
+    userProperty: "auth"
+  });
+  
+  //custom middlewares
+  exports.isAuthenticated = (req, res, next) => {
+    let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+    if (!checker) {
+      return res.status(403).json({
+        error: "ACCESS DENIED"
+      });
     }
-    next()
-}
-
-exports.isAdmin = (req, res, next) => {
-    if(eq.profile.role === 0){
-        return res.status(403).json({
-            error: "You are not ADMIN, Access Denied"
-        })
+    next();
+  };
+  
+  exports.isAdmin = (req, res, next) => {
+    if (req.profile.role === 0) {
+      return res.status(403).json({
+        error: "You are not ADMIN, Access denied"
+      });
     }
-    next()
-}
+    next();
+  };
