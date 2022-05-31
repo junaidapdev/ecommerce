@@ -3,60 +3,67 @@ const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
 
-
 exports.getProductById = (req, res, next, id) => {
-    Product.findById(id)
+  Product.findById(id)
     .populate("category")
     .exec((err, product) => {
-        if (err) {
-            return res.status(400).json({
-              error: "Product not found in DB"
-            });
-          }
-        req.product = product;
-        next(); 
-    })
-}
+      if (err) {
+        return res.status(400).json({
+          error: "Product not found in DB",
+        });
+      }
+      req.product = product;
+      next();
+    });
+};
 
 exports.createProduct = (req, res) => {
-    const form = new formidable.IncomingForm();
+  const form = new formidable.IncomingForm();
 
-    form.keepExtensions = true;
+  form.keepExtensions = true;
 
-    form.parse(req, (err, fiels, file) => {
-        if (err) {
-            return res.status(400).json({
-              error: "Problem with image"
-            });
-          }
+  form.parse(req, (err, fields, file) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Problem with image",
+      });
+    }
 
-        // TODO
+    //destructuring the fields
 
-        let product = new Product(fields)
+    const { name, description, price, category, stock } = fields;
 
-        //handle file here
+    if (!name || !description || !price || !category || !stock) {
+      return res.status(400).json({
+        error: "Please include all fields ",
+      });
+    }
 
-        if(file.photo){
-            if(file.photo.size > 3000000) {
-                return res.status(400).json({
-                    error: "file too big"
-                  });
-            }
-            product.photo.data = fs.readFileSync(file.photo.path)
-            product.photo.contentType = file.photo.type
-            
-        }
+    // TODO
 
+    let product = new Product(fields);
 
-        // save to the DB
+    //handle file here
 
-        product.save((err, product) => {
-            if (err) {
-                return res.status(400).json({
-                  error: "Error saving tshirt in DB"
-                });
-              }
-            res.json(product)
-        })
-    })
-}
+    if (file.photo) {
+      if (file.photo.size > 3000000) {
+        return res.status(400).json({
+          error: "file too big",
+        });
+      }
+      product.photo.data = fs.readFileSync(file.photo.path);
+      product.photo.contentType = file.photo.type;
+    }
+
+    // save to the DB
+
+    product.save((err, product) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Error saving tshirt in DB",
+        });
+      }
+      res.json(product);
+    });
+  });
+};
