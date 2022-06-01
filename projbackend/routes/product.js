@@ -53,5 +53,7 @@ router.delete(
     updateProduct
   );
   
-  
+  //listing route
+  router.get("/products", getAllProducts);
+
 module.exports = router;
