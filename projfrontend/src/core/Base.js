@@ -1,6 +1,7 @@
 import React from 'react'
 import Menu from './Menu'
 
+
 const Base = ({
     title="My Title",
     description="My Description",
@@ -19,11 +20,11 @@ const Base = ({
         </div>
         <footer className='bg-dark footer mt-auto py-3'>
             <div className="container-fluid bg-success text-white text-center">
-                <h4>got any qyes feel free to reach out</h4>
+                <h4>Got any queries feel free to reach out!</h4>
                 <button className='btn btn-warning btn-lg  '>Contact US</button>
             </div>
             <div className="container">
-                <span className="text-muted">Amazing MERN Bootcamp</span>
+                <span className="text-muted text-center">Amazing MERN Bootcamp</span>
             </div>
         </footer>
     </div>
