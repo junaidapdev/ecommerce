@@ -155,6 +155,19 @@ exports.deleteProduct = (req, res) => {
       });
   };
 
+
+  exports.getAllUniqueCategories = (req, res) => {
+      Product.distinct("category", {}, (err, category) => {
+          if(err){
+              return res.status.json({
+                  error: "No Category Found"
+              })
+          }
+          res.json(category)
+      })
+  }
+
+
   exports.updateStock = (req, res, next) => {
       let myOperations = req.body.order.products.map(prod => {
           return {
