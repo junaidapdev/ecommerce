@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Base from "../core/Base";
 import { Link, Redirect } from "react-router-dom";
 
-import { signin, authenticate, isAutheticated } from "../auth/helper";
+import { signin, authenticate, isAuthenticated } from "../auth/helper";
 
 const Signin = () => {
   const [values, setValues] = useState({
@@ -14,7 +14,7 @@ const Signin = () => {
   });
 
   const { email, password, error, loading, didRedirect } = values;
-  const { user } = isAutheticated();
+  const { user } = isAuthenticated();
 
   const handleChange = name => event => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -43,15 +43,16 @@ const Signin = () => {
     //TODO: do a redirect here
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <p>redirect to admin</p>;
+        return <Redirect to="/admin/dashboard" />;
       } else {
-        return <p>redirect to user dashboard</p>;
+        return <Redirect to="/user/dashboard" />;
       }
     }
-    if (isAutheticated()) {
+    if (isAuthenticated()) {
       return <Redirect to="/" />;
     }
   };
+
 
   const loadingMessage = () => {
     return (
