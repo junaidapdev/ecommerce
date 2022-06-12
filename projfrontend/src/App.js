@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-const App = () => {
+export default function App() {
   return (
-    <div>App</div>
-  )
+    <div>
+      <h1>Hi</h1>
+    </div>
+  );
 }
-
-export default App

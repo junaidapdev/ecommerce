@@ -27,7 +27,7 @@ export const signin = user => {
     .then(response => {
       return response.json();
     })
-    .catch(error => console.log(error));
+    .catch(err => console.log(err));
 };
 
 export const authenticate = (data, next) => {
@@ -50,7 +50,7 @@ export const signout = next => {
   }
 };
 
-export const isAuthenticated = () => {
+export const isAutheticated = () => {
   if (typeof window == "undefined") {
     return false;
   }

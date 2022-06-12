@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import { isAuthenticated } from "../auth/helper";
+import { isAutheticated } from "../auth/helper";
 import { Link } from "react-router-dom";
 import { createCategory } from "./helper/adminapicall";
 
@@ -9,7 +9,7 @@ const AddCategory = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const { user, token } = isAuthenticated();
+  const { user, token } = isAutheticated();
 
   const goBack = () => (
     <div className="mt-5">
@@ -52,8 +52,6 @@ const AddCategory = () => {
       return <h4 className="text-success">Failed to create category</h4>;
     }
   };
-
-
 
   const myCategoryForm = () => (
     <form>

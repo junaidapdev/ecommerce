@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import { signin, authenticate, isAuthenticated } from "../auth/helper";
+import { signin, authenticate, isAutheticated } from "../auth/helper";
 
 const Signin = () => {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    email: "junu@gmail.com",
+    password: "123",
     error: "",
     loading: false,
     didRedirect: false
   });
 
   const { email, password, error, loading, didRedirect } = values;
-  const { user } = isAuthenticated();
+  const { user } = isAutheticated();
 
   const handleChange = name => event => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -40,7 +40,6 @@ const Signin = () => {
   };
 
   const performRedirect = () => {
-    //TODO: do a redirect here
     if (didRedirect) {
       if (user && user.role === 1) {
         return <Redirect to="/admin/dashboard" />;
@@ -48,11 +47,10 @@ const Signin = () => {
         return <Redirect to="/user/dashboard" />;
       }
     }
-    if (isAuthenticated()) {
+    if (isAutheticated()) {
       return <Redirect to="/" />;
     }
   };
-
 
   const loadingMessage = () => {
     return (
@@ -118,6 +116,7 @@ const Signin = () => {
       {errorMessage()}
       {signInForm()}
       {performRedirect()}
+
       <p className="text-white text-center">{JSON.stringify(values)}</p>
     </Base>
   );
