@@ -46,6 +46,51 @@ export const createaProduct = (userId, token, product) => {
     .catch(err => console.log(err));
 };
 
+//get a category
+export const getACategory = categoryId => {
+  return fetch(`${API}/category/${categoryId}`, {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+// update a category
+
+export const updateCategory = (categoryId, userId, token, category) => {
+  return fetch(`${API}/product/${categoryId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: category
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+
+// delete category
+export const deleteCategory = (categoryId, userId, token) => {
+  return fetch(`${API}/product/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+
 //get all products
 export const getProducts = () => {
   return fetch(`${API}/products`, {

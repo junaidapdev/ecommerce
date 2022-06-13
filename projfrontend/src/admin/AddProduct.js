@@ -182,7 +182,7 @@ const AddProduct = () => {
       <div className="row bg-dark text-white rounded">
         <div className="col-md-8 offset-md-2">
         {successMessage()}
-{createProductForm()}</div>
+        {createProductForm()}</div>
       </div>
     </Base>
   );
